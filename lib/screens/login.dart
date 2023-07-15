@@ -22,6 +22,8 @@ class LogIn extends StatefulWidget {
 class _LogInState extends State<LogIn> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  var _emailIsValid = true;
+  var _passwordIsValid = true;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   late final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -32,42 +34,36 @@ class _LogInState extends State<LogIn> {
     _passwordController.dispose();
     super.dispose();
   }
-googleLogin() async {
+
+  googleLogin() async {
     print("GoogleLogin method called");
     GoogleSignIn _googleSignIn = GoogleSignIn();
     try {
       var result = await _googleSignIn.signIn();
-      if (result == null){
+      if (result == null) {
         return;
       }
       final userData = await result.authentication;
       final credential = GoogleAuthProvider.credential(
-        accessToken: userData.accessToken, idToken: userData.idToken
-      );
-      var finalResult = await FirebaseAuth.instance.signInWithCredential(credential);
+          accessToken: userData.accessToken, idToken: userData.idToken);
+      var finalResult =
+          await FirebaseAuth.instance.signInWithCredential(credential);
       print("Result $result ");
       print(result.displayName);
       print(result.email);
       print(result.photoUrl);
-    }
-    catch (error){
+    } catch (error) {
       print(error);
     }
+  }
 
-}
-
-Future<void> logout() async {
-  await FirebaseAuth.instance.signOut();
-  await GoogleSignIn().disconnect();
-   ()async {
-    Get.to(const SignUp());
-
-  };
-
-
-
-
-}
+  Future<void> logout() async {
+    await FirebaseAuth.instance.signOut();
+    await GoogleSignIn().disconnect();
+    () async {
+      Get.to(const SignUp());
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,9 +83,8 @@ Future<void> logout() async {
           backgroundColor: Colors.transparent,
           resizeToAvoidBottomInset: false,
           body: Container(
-            margin: EdgeInsets.fromLTRB(20, 40, 20, 40),
+            margin: const EdgeInsets.fromLTRB(20, 40, 20, 40),
             child: SingleChildScrollView(
-
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -97,18 +92,10 @@ Future<void> logout() async {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Spacer(),
                       InkWell(
-                        onTap: () =>
-                            Get.to(SignUp(), transition: Transition.downToUp),
-                        child: Icon(
-                          Icons.arrow_back_sharp,
-                          size: 30,
-                          color: Colors.grey.shade600,
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () =>
-                            Get.to(SignUp(), transition: Transition.downToUp),
+                        onTap: () => Get.to(const SignUp(),
+                            transition: Transition.downToUp),
                         child: Card(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
@@ -124,22 +111,27 @@ Future<void> logout() async {
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
-                        ),),
+                        ),
+                      ),
                     ],
                   ),
-                  SizedBox(height: 10,),
-                  Text(
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text(
                     " \n Welcome Back \n",
                     style: TextStyle(
                         fontSize: 35,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
-                  SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Container(
                     alignment: Alignment.center,
                     width: 320,
-                    height: 85,
+                    // height: 85,
                     child: Card(
                       elevation: 10,
                       shape: RoundedRectangleBorder(
@@ -161,6 +153,8 @@ Future<void> logout() async {
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
+                                errorText:
+                                    _emailIsValid ? null : 'Enter valid email',
                                 filled: true,
                                 hintStyle: TextStyle(
                                   color: Colors.grey[500],
@@ -169,28 +163,36 @@ Future<void> logout() async {
                                 hintText: "E-mail",
                                 fillColor: Colors.transparent,
                                 isDense: true,
-                                contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 44),
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(15, 0, 0, 44),
                               ),
                               keyboardType: TextInputType.emailAddress),
+                          _emailIsValid
+                              ? SizedBox(height: 10)
+                              : SizedBox(height: 95),
                         ],
                       ),
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10),
                   Container(
                     alignment: Alignment.center,
                     width: 320,
-                    height: 80,
-                    margin: EdgeInsets.only(top: 20),
+                    // height: 80,
                     child: Card(
                       elevation: 10,
                       borderOnForeground: false,
+                      shape: RoundedRectangleBorder(
+                        side: const BorderSide(color: Colors.white70, width: 1),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      color: Colors.white,
                       child: Stack(
                         children: [
-                          ListTile(
+                          const ListTile(
                             minVerticalPadding: 20,
                             trailing: Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                               child: Icon(Icons.password_outlined),
                             ),
                           ),
@@ -200,6 +202,9 @@ Future<void> logout() async {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
+                              errorText: _passwordIsValid
+                                  ? null
+                                  : 'Password must be atleast 6 characters',
                               filled: true,
                               hintStyle: TextStyle(
                                 color: Colors.grey[500],
@@ -208,31 +213,33 @@ Future<void> logout() async {
                               hintText: "Password",
                               fillColor: Colors.transparent,
                               isDense: true,
-                              contentPadding: EdgeInsets.fromLTRB(15, 0, 0, 44),
+                              contentPadding:
+                                  const EdgeInsets.fromLTRB(15, 0, 0, 44),
                             ),
                             keyboardType: TextInputType.visiblePassword,
                           ),
+                          _passwordIsValid
+                              ? SizedBox(height: 10)
+                              : SizedBox(height: 95),
                         ],
                       ),
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.white70, width: 1),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      color: Colors.white,
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   InkWell(
                     onTap: () => signIn(),
                     child: Card(
                       color: Colors.transparent,
                       child: Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(10)),
                           border: Border.all(
                             color: Colors.white70,
                           ),
-                          gradient: LinearGradient(
+                          gradient: const LinearGradient(
                             colors: [
                               Color(0xffcf366d),
                               Color(0xffaf44ae),
@@ -240,8 +247,8 @@ Future<void> logout() async {
                             ],
                           ),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(135, 20, 135, 20),
+                        child: const Padding(
+                          padding: EdgeInsets.fromLTRB(135, 20, 135, 20),
                           child: Text(
                             "Log In",
                             style: TextStyle(
@@ -254,45 +261,52 @@ Future<void> logout() async {
                       ),
                     ),
                   ),
-
-                  SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   InkWell(
-                    onTap: () => Get.to(ResetScreen()),
-                    child :const Text("Forgot your Password?",
-                    style: TextStyle(fontSize: 13, color: Color.fromARGB(255, 255, 65, 118)),
+                    onTap: () => Get.to(const ResetScreen()),
+                    child: const Text(
+                      "Forgot your Password?",
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Color.fromARGB(255, 255, 65, 118)),
                     ),
                   ),
-
-                  SizedBox(height: 10,),
-
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Container(
                     width: 320,
-
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            width: 120,
+                            width: 100,
                             child: InkWell(
                               onTap: () => googleLogin(),
                               child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              color: Colors.blue,
-                              child: const Padding(
-                                padding:
-                                EdgeInsets.fromLTRB(50, 18, 40, 18),
-                                child: Text(
-                                  "G",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                                color: Colors.white,
+                                child: Padding(
+                                  padding: EdgeInsets.all(15),
+                                  // child: Text(
+                                  //   "G",
+                                  //   style: TextStyle(
+                                  //       color: Colors.white,
+                                  //       fontWeight: FontWeight.bold,
+                                  //       fontSize: 18),
+                                  // ),
+                                  child: Image.asset(
+                                    'assets/google-logo.png',
+                                    width: 25,
+                                    height: 25,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
                           ),
                           // Container(
                           //   width: 120,
@@ -315,182 +329,189 @@ Future<void> logout() async {
                           //   ),
                           // ),
                         ]),
-
                   )
-
                 ],
               ),
-
-
             ),
-
-
-
           )
 
+          // Stack(
+          //   children: [
 
-
-
-        // Stack(
-        //   children: [
-
-
-
-        //     FadeInUp(
-        //       delay: Duration(milliseconds: 1100),
-        //       child: Align(
-        //         alignment: Alignment(0.42, 0.12),
-        //          Text(
-        //           "Forgot your Password?",
-        //           style: TextStyle(
-        //               fontSize: 13, color: Color.fromARGB(255, 255, 65, 118)),
-        //         ),
-        //       ),
-        //     ),
-        //     FadeInUp(
-        //       duration: Duration(milliseconds: 500),
-        //       delay: Duration(milliseconds: 1000),
-        //       child: Align(
-        //         alignment: Alignment(0.0, 0.28),
-        //         child: InkWell(
-        //           onTap: () => signIn(),
-        //           child: Card(
-        //             color: Colors.transparent,
-        //             child: Container(
-        //               decoration: BoxDecoration(
-        //                 borderRadius: BorderRadius.all(Radius.circular(10)),
-        //                 border: Border.all(
-        //                   color: Colors.white70,
-        //                 ),
-        //                 gradient: LinearGradient(
-        //                   colors: [
-        //                     Color(0xffcf366d),
-        //                     Color(0xffaf44ae),
-        //                     Color(0xff904fe5)
-        //                   ],
-        //                 ),
-        //               ),
-        //               child: Padding(
-        //                 padding: const EdgeInsets.fromLTRB(135, 20, 135, 20),
-        //                 child: Text(
-        //                   "Log In",
-        //                   style: TextStyle(
-        //                     color: Colors.white,
-        //                     fontWeight: FontWeight.bold,
-        //                     fontSize: 12,
-        //                   ),
-        //                 ),
-        //               ),
-        //             ),
-        //           ),
-        //         ),
-        //       ),
-        //     ),
-        //     FadeInUp(
-        //       delay: Duration(milliseconds: 1100),
-        //       child: Align(
-        //         alignment: Alignment(0.0, 0.38),
-        //         child: Text(
-        //           "Or continue with",
-        //           style: TextStyle(fontSize: 13, color: Colors.white),
-        //         ),
-        //       ),
-        //     ),
-        //     FadeInUp(
-        //       delay: Duration(milliseconds: 1150),
-        //       child: Align(
-        //         alignment: Alignment(-0.73, 0.55),
-        //         child: Card(
-        //           shape: RoundedRectangleBorder(
-        //             borderRadius: BorderRadius.circular(10),
-        //           ),
-        //           color: Colors.blue,
-        //           child: Padding(
-        //             padding: const EdgeInsets.fromLTRB(60, 18, 60, 18),
-        //             child: Text(
-        //               "G",
-        //               style: TextStyle(
-        //                 color: Colors.white,
-        //                 fontWeight: FontWeight.bold,
-        //                 fontSize: 18,
-        //               ),
-        //             ),
-        //           ),
-        //         ),
-        //       ),
-        //     ),
-        //     FadeInUp(
-        //       delay: Duration(milliseconds: 1200),
-        //       child: Align(
-        //         alignment: Alignment(0.7, 0.55),
-        //         child: Card(
-        //           shape: RoundedRectangleBorder(
-        //             borderRadius: BorderRadius.circular(10),
-        //           ),
-        //           color: Colors.blue.shade900,
-        //           child: Padding(
-        //             padding: const EdgeInsets.fromLTRB(60, 18, 60, 18),
-        //             child: Text(
-        //               "f",
-        //               style: TextStyle(
-        //                   color: Colors.white,
-        //                   fontWeight: FontWeight.bold,
-        //                   fontSize: 18),
-        //             ),
-        //           ),
-        //         ),
-        //       ),
-        //     ),
-        //     FadeInUp(
-        //       delay: Duration(milliseconds: 1200),
-        //       child: Align(
-        //         alignment: Alignment(0.0, 0.67),
-        //         child: Text(
-        //           "Don't have an account? Sign up",
-        //           style: TextStyle(fontSize: 13, color: Colors.white),
-        //         ),
-        //       ),
-        //     ),
-        //   ],
-        // ),
-      ),
+          //     FadeInUp(
+          //       delay: Duration(milliseconds: 1100),
+          //       child: Align(
+          //         alignment: Alignment(0.42, 0.12),
+          //          Text(
+          //           "Forgot your Password?",
+          //           style: TextStyle(
+          //               fontSize: 13, color: Color.fromARGB(255, 255, 65, 118)),
+          //         ),
+          //       ),
+          //     ),
+          //     FadeInUp(
+          //       duration: Duration(milliseconds: 500),
+          //       delay: Duration(milliseconds: 1000),
+          //       child: Align(
+          //         alignment: Alignment(0.0, 0.28),
+          //         child: InkWell(
+          //           onTap: () => signIn(),
+          //           child: Card(
+          //             color: Colors.transparent,
+          //             child: Container(
+          //               decoration: BoxDecoration(
+          //                 borderRadius: BorderRadius.all(Radius.circular(10)),
+          //                 border: Border.all(
+          //                   color: Colors.white70,
+          //                 ),
+          //                 gradient: LinearGradient(
+          //                   colors: [
+          //                     Color(0xffcf366d),
+          //                     Color(0xffaf44ae),
+          //                     Color(0xff904fe5)
+          //                   ],
+          //                 ),
+          //               ),
+          //               child: Padding(
+          //                 padding: const EdgeInsets.fromLTRB(135, 20, 135, 20),
+          //                 child: Text(
+          //                   "Log In",
+          //                   style: TextStyle(
+          //                     color: Colors.white,
+          //                     fontWeight: FontWeight.bold,
+          //                     fontSize: 12,
+          //                   ),
+          //                 ),
+          //               ),
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //     FadeInUp(
+          //       delay: Duration(milliseconds: 1100),
+          //       child: Align(
+          //         alignment: Alignment(0.0, 0.38),
+          //         child: Text(
+          //           "Or continue with",
+          //           style: TextStyle(fontSize: 13, color: Colors.white),
+          //         ),
+          //       ),
+          //     ),
+          //     FadeInUp(
+          //       delay: Duration(milliseconds: 1150),
+          //       child: Align(
+          //         alignment: Alignment(-0.73, 0.55),
+          //         child: Card(
+          //           shape: RoundedRectangleBorder(
+          //             borderRadius: BorderRadius.circular(10),
+          //           ),
+          //           color: Colors.blue,
+          //           child: Padding(
+          //             padding: const EdgeInsets.fromLTRB(60, 18, 60, 18),
+          //             child: Text(
+          //               "G",
+          //               style: TextStyle(
+          //                 color: Colors.white,
+          //                 fontWeight: FontWeight.bold,
+          //                 fontSize: 18,
+          //               ),
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //     FadeInUp(
+          //       delay: Duration(milliseconds: 1200),
+          //       child: Align(
+          //         alignment: Alignment(0.7, 0.55),
+          //         child: Card(
+          //           shape: RoundedRectangleBorder(
+          //             borderRadius: BorderRadius.circular(10),
+          //           ),
+          //           color: Colors.blue.shade900,
+          //           child: Padding(
+          //             padding: const EdgeInsets.fromLTRB(60, 18, 60, 18),
+          //             child: Text(
+          //               "f",
+          //               style: TextStyle(
+          //                   color: Colors.white,
+          //                   fontWeight: FontWeight.bold,
+          //                   fontSize: 18),
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //     FadeInUp(
+          //       delay: Duration(milliseconds: 1200),
+          //       child: Align(
+          //         alignment: Alignment(0.0, 0.67),
+          //         child: Text(
+          //           "Don't have an account? Sign up",
+          //           style: TextStyle(fontSize: 13, color: Colors.white),
+          //         ),
+          //       ),
+          //     ),
+          //   ],
+          // ),
+          ),
     );
   }
 
   Future signIn() async {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
-    try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(
-          email: _emailController.text.trim(),
-          password: _passwordController.text.trim())
-          .then((userCredential) {
-        print(userCredential.user?.displayName);
-        Get.to(MyHomePage());
+    if (_emailController.text.trim().isEmpty ||
+        !_emailController.text.contains('@')) {
+      setState(() {
+        _emailIsValid = false;
       });
-    } on FirebaseAuthException catch (e) {
-      print(e.toString());
+    } else {
+      _emailIsValid = true;
     }
 
+    if (_passwordController.text.trim().length < 6 ||
+        _passwordController.text.isEmpty) {
+      setState(() {
+        _passwordIsValid = false;
+      });
+    } else {
+      setState(() {
+        _passwordIsValid = true;
+      });
+    }
+
+    if (_emailIsValid && _passwordIsValid) {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+      try {
+        await FirebaseAuth.instance
+            .signInWithEmailAndPassword(
+                email: _emailController.text.trim(),
+                password: _passwordController.text.trim())
+            .then((userCredential) {
+          print(userCredential.user?.displayName);
+          Get.to(MyHomePage());
+        });
+      } on FirebaseAuthException catch (e) {
+        print(e.toString());
+      }
+    }
   }
 
-
-
-  Future<Future<UserCredential>> signInFacebook() async{
-    final LoginResult loginResult = await FacebookAuth.instance.login(permissions: ['email']);
-    if(loginResult ==LoginStatus.success){
+  Future<Future<UserCredential>> signInFacebook() async {
+    final LoginResult loginResult =
+        await FacebookAuth.instance.login(permissions: ['email']);
+    if (loginResult == LoginStatus.success) {
       final userData = await FacebookAuth.instance.getUserData();
     }
-    final OAuthCredential oauthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
-    return FirebaseAuth.instance.signInWithCredential(OAuthCredential as AuthCredential);
+    final OAuthCredential oauthCredential =
+        FacebookAuthProvider.credential(loginResult.accessToken!.token);
+    return FirebaseAuth.instance
+        .signInWithCredential(OAuthCredential as AuthCredential);
   }
 }
-
-
-
