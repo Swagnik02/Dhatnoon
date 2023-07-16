@@ -89,9 +89,17 @@ class _LogInState extends State<LogIn> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(
-                      height: 10,
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/logon.png',
+                          width: 200,
+                        )
+                      ],
                     ),
+                    const SizedBox(height: 10),
                     const Text(
                       " \n Welcome Back \n",
                       style: TextStyle(
@@ -144,8 +152,8 @@ class _LogInState extends State<LogIn> {
                                 ),
                                 keyboardType: TextInputType.emailAddress),
                             _emailIsValid
-                                ? SizedBox(height: 10)
-                                : SizedBox(height: 95),
+                                ? const SizedBox(height: 10)
+                                : const SizedBox(height: 95),
                           ],
                         ),
                       ),
@@ -196,8 +204,8 @@ class _LogInState extends State<LogIn> {
                               keyboardType: TextInputType.visiblePassword,
                             ),
                             _passwordIsValid
-                                ? SizedBox(height: 10)
-                                : SizedBox(height: 95),
+                                ? const SizedBox(height: 10)
+                                : const SizedBox(height: 95),
                           ],
                         ),
                       ),
@@ -301,7 +309,7 @@ class _LogInState extends State<LogIn> {
                                   ),
                                   color: Colors.white,
                                   child: Padding(
-                                    padding: EdgeInsets.all(15),
+                                    padding: const EdgeInsets.all(15),
                                     // child: Text(
                                     //   "G",
                                     //   style: TextStyle(

@@ -86,35 +86,18 @@ class _SignUpState extends State<SignUp> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //   children: [
-                      //     Spacer(),
-                      //     InkWell(
-                      //       onTap: () => Get.to(const LogIn(),
-                      //           transition: Transition.downToUp),
-                      //       child: Card(
-                      //         shape: RoundedRectangleBorder(
-                      //           borderRadius: BorderRadius.circular(15.0),
-                      //         ),
-                      //         color: Colors.grey.shade600,
-                      //         child: const Padding(
-                      //           padding: EdgeInsets.all(8),
-                      //           child: Text(
-                      //             "Log In",
-                      //             style: TextStyle(
-                      //               fontSize: 14,
-                      //               color: Color(0xff120032),
-                      //               fontWeight: FontWeight.bold,
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/logon.png',
+                            width: 200,
+                          )
+                        ],
+                      ),
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       const Text(
                         "Create Account",
@@ -525,7 +508,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                       const SizedBox(height: 10),
                       InkWell(
-                        onTap: () => Get.to(const SignUp(),
+                        onTap: () => Get.to(const LogIn(),
                             transition: Transition.downToUp),
                         child: Card(
                           color: Colors.transparent,
@@ -579,7 +562,7 @@ class _SignUpState extends State<SignUp> {
                                   ),
                                   color: Colors.white,
                                   child: Padding(
-                                    padding: EdgeInsets.all(15),
+                                    padding: const EdgeInsets.all(15),
                                     child: Image.asset(
                                       'assets/google-logo.png',
                                       width: 25,
