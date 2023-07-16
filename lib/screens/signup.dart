@@ -81,412 +81,452 @@ class _SignUpState extends State<SignUp> {
             body: Container(
               margin: const EdgeInsets.fromLTRB(20, 40, 20, 40),
               child: SingleChildScrollView(
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Spacer(),
-                        InkWell(
-                          onTap: () => Get.to(const LogIn(),
-                              transition: Transition.downToUp),
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            color: Colors.grey.shade600,
-                            child: const Padding(
-                              padding: EdgeInsets.all(8),
-                              child: Text(
-                                "Log In",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Color(0xff120032),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Text(
-                      "Create Account",
-                      style: TextStyle(
-                          fontSize: 35,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      width: 320,
-                      height: 80,
-                      child: Card(
-                        elevation: 10,
-                        shape: RoundedRectangleBorder(
-                          side:
-                              const BorderSide(color: Colors.white70, width: 1),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        color: Colors.white,
-                        child: Stack(children: [
-                          const ListTile(
-                            // minVerticalPadding: 20,
-                            trailing: Padding(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                              child: Icon(Icons.person_outline),
-                            ),
-                          ),
-                          TextField(
-                            controller: _usernameController,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              errorText: _usernameIsValid
-                                  ? null
-                                  : 'Enter valid username',
-                              filled: true,
-                              hintStyle: TextStyle(
-                                color: Colors.grey[500],
-                                fontSize: 13,
-                              ),
-                              hintText: "User Name",
-                              fillColor: Colors.transparent,
-                              isDense: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(15, 0, 0, 44),
-                            ),
-                            keyboardType: TextInputType.name,
-                          ),
-                        ]),
+                  child: Center(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     Spacer(),
+                      //     InkWell(
+                      //       onTap: () => Get.to(const LogIn(),
+                      //           transition: Transition.downToUp),
+                      //       child: Card(
+                      //         shape: RoundedRectangleBorder(
+                      //           borderRadius: BorderRadius.circular(15.0),
+                      //         ),
+                      //         color: Colors.grey.shade600,
+                      //         child: const Padding(
+                      //           padding: EdgeInsets.all(8),
+                      //           child: Text(
+                      //             "Log In",
+                      //             style: TextStyle(
+                      //               fontSize: 14,
+                      //               color: Color(0xff120032),
+                      //               fontWeight: FontWeight.bold,
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      const SizedBox(
+                        height: 10,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      width: 320,
-                      height: 80,
-                      child: Card(
-                        elevation: 10,
-                        borderOnForeground: false,
-                        shape: RoundedRectangleBorder(
-                          side:
-                              const BorderSide(color: Colors.white70, width: 1),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        color: Colors.white,
-                        child: Stack(
-                          children: [
+                      const Text(
+                        "Create Account",
+                        style: TextStyle(
+                            fontSize: 35,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        width: 320,
+                        height: 80,
+                        child: Card(
+                          elevation: 10,
+                          shape: RoundedRectangleBorder(
+                            side: const BorderSide(
+                                color: Colors.white70, width: 1),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          color: Colors.white,
+                          child: Stack(children: [
                             const ListTile(
-                              minVerticalPadding: 20,
+                              // minVerticalPadding: 20,
                               trailing: Padding(
                                 padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                child: Icon(Icons.phone_android),
+                                child: Icon(Icons.person_outline),
                               ),
                             ),
                             TextField(
-                              controller: _phoneController,
+                              controller: _usernameController,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                errorText: _phoneIsValid
+                                errorText: _usernameIsValid
                                     ? null
-                                    : 'Enter valid phone number',
+                                    : 'Enter valid username',
                                 filled: true,
                                 hintStyle: TextStyle(
                                   color: Colors.grey[500],
                                   fontSize: 13,
                                 ),
-                                hintText: "Phone",
+                                hintText: "User Name",
                                 fillColor: Colors.transparent,
                                 isDense: true,
                                 contentPadding:
                                     const EdgeInsets.fromLTRB(15, 0, 0, 44),
                               ),
-                              keyboardType: TextInputType.phone,
+                              keyboardType: TextInputType.name,
                             ),
-                          ],
+                          ]),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      width: 320,
-                      height: 80,
-                      child: Card(
-                        elevation: 10,
-                        borderOnForeground: false,
-                        shape: RoundedRectangleBorder(
-                          side:
-                              const BorderSide(color: Colors.white70, width: 1),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        color: Colors.white,
-                        child: Stack(
-                          children: [
-                            const ListTile(
-                              minVerticalPadding: 20,
-                              trailing: Padding(
-                                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                child: Icon(Icons.email_outlined),
-                              ),
-                            ),
-                            TextField(
-                              controller: _emailController,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                errorText:
-                                    _emainIsValid ? null : 'Enter valid email',
-                                filled: true,
-                                hintStyle: TextStyle(
-                                  color: Colors.grey[500],
-                                  fontSize: 13,
-                                ),
-                                hintText: "E-Mail",
-                                fillColor: Colors.transparent,
-                                isDense: true,
-                                contentPadding:
-                                    const EdgeInsets.fromLTRB(15, 0, 0, 44),
-                              ),
-                              keyboardType: TextInputType.emailAddress,
-                            ),
-                          ],
-                        ),
+                      const SizedBox(
+                        height: 10,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      width: 320,
-                      height: 80,
-                      child: Card(
-                        elevation: 10,
-                        borderOnForeground: false,
-                        shape: RoundedRectangleBorder(
-                          side:
-                              const BorderSide(color: Colors.white70, width: 1),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        color: Colors.white,
-                        child: Stack(
-                          children: [
-                            const ListTile(
+                      Container(
+                        alignment: Alignment.center,
+                        width: 320,
+                        height: 80,
+                        child: Card(
+                          elevation: 10,
+                          borderOnForeground: false,
+                          shape: RoundedRectangleBorder(
+                            side: const BorderSide(
+                                color: Colors.white70, width: 1),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          color: Colors.white,
+                          child: Stack(
+                            children: [
+                              const ListTile(
                                 minVerticalPadding: 20,
                                 trailing: Padding(
                                   padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                  child: Icon(Icons.password_outlined),
-                                )),
-                            TextField(
-                              controller: _passwordController,
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
+                                  child: Icon(Icons.phone_android),
                                 ),
-                                errorText: _passwordIsvalid
-                                    ? null
-                                    : 'Password must be atleast 6 characters',
-                                filled: true,
-                                hintStyle: TextStyle(
-                                  color: Colors.grey[500],
-                                  fontSize: 13,
-                                ),
-                                hintText: "Password",
-                                fillColor: Colors.transparent,
-                                isDense: true,
-                                contentPadding:
-                                    const EdgeInsets.fromLTRB(15, 0, 0, 44),
                               ),
-                              keyboardType: TextInputType.visiblePassword,
-                            ),
-                          ],
+                              TextField(
+                                controller: _phoneController,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  errorText: _phoneIsValid
+                                      ? null
+                                      : 'Enter valid phone number',
+                                  filled: true,
+                                  hintStyle: TextStyle(
+                                    color: Colors.grey[500],
+                                    fontSize: 13,
+                                  ),
+                                  hintText: "Phone",
+                                  fillColor: Colors.transparent,
+                                  isDense: true,
+                                  contentPadding:
+                                      const EdgeInsets.fromLTRB(15, 0, 0, 44),
+                                ),
+                                keyboardType: TextInputType.phone,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      width: 320,
-                      height: 80,
-                      child: InkWell(
-                        onTap: () {
-                          if (_emailController.text.trim().isEmpty ||
-                              !_emailController.text.contains('@')) {
-                            setState(() {
-                              _emainIsValid = false;
-                            });
-                          } else {
-                            setState(() {
-                              _emainIsValid = true;
-                            });
-                          }
-
-                          if (_passwordController.text.trim().length < 6 ||
-                              _passwordController.text.isEmpty) {
-                            setState(() {
-                              _passwordIsvalid = false;
-                            });
-                          } else {
-                            setState(() {
-                              _passwordIsvalid = true;
-                            });
-                          }
-
-                          if (_phoneController.text.trim().length > 10 ||
-                              _phoneController.text.isEmpty) {
-                            setState(() {
-                              _phoneIsValid = false;
-                            });
-                          } else {
-                            setState(() {
-                              _phoneIsValid = true;
-                            });
-                          }
-
-                          if (_usernameController.text.isEmpty) {
-                            setState(() {
-                              _usernameIsValid = false;
-                            });
-                          } else {
-                            setState(() {
-                              _usernameIsValid = true;
-                            });
-                          }
-
-                          if (_emainIsValid &&
-                              _passwordIsvalid &&
-                              _phoneIsValid &&
-                              _usernameIsValid) {
-                            authHandler.sendOtp(_emailController.text);
-                            Get.defaultDialog(
-                              title: "OTP Verification",
-                              content: Column(
-                                children: [
-                                  Text(
-                                      "Please enter OTP sent to ${_emailController.text.trim()}"),
-                                  Container(
-                                    alignment: Alignment.center,
-                                    width: 320,
-                                    height: 80,
-                                    child: Card(
-                                      elevation: 10,
-                                      shape: RoundedRectangleBorder(
-                                        side: const BorderSide(
-                                            color: Colors.white70, width: 1),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      color: Colors.white,
-                                      child: Stack(children: [
-                                        const ListTile(
-                                          trailing: Padding(
-                                            padding: EdgeInsets.fromLTRB(
-                                                0, 10, 0, 0),
-                                            child: Icon(Icons.lock),
-                                          ),
-                                        ),
-                                        TextField(
-                                          controller: _otpcontroller,
-                                          decoration: InputDecoration(
-                                            border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
-                                            ),
-                                            filled: true,
-                                            hintStyle: TextStyle(
-                                              color: Colors.grey[500],
-                                              fontSize: 13,
-                                            ),
-                                            hintText: "Enter OTP",
-                                            fillColor: Colors.transparent,
-                                            isDense: true,
-                                            contentPadding:
-                                                const EdgeInsets.fromLTRB(
-                                                    15, 0, 0, 44),
-                                          ),
-                                          keyboardType: TextInputType.number,
-                                        ),
-                                      ]),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      authHandler
-                                          .verifyOtp(_otpcontroller.text);
-                                      Get.defaultDialog(
-                                          title: "OTP Verified ✔",
-                                          middleText:
-                                              "please wait... redirecting to HomePage");
-                                      signUp();
-                                      // if () {
-                                      //   Get.defaultDialog(
-                                      //       title: "OTP Verified ✔",
-                                      //       middleText:
-                                      //       "please wait... redirecting to HomePage");
-                                      //   signUp();
-                                      // } else {
-                                      //   Get.defaultDialog(
-                                      //       title: "OTP Verification failed",
-                                      //       middleText: "please try again...");
-                                      // }
-                                    },
-                                    child: Card(
-                                      color: Colors.transparent,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(10)),
-                                          border: Border.all(
-                                            color: Colors.white70,
-                                          ),
-                                          gradient: const LinearGradient(
-                                            colors: [
-                                              Color(0xffcf366d),
-                                              Color(0xffaf44ae),
-                                              Color(0xff904fe5)
-                                            ],
-                                          ),
-                                        ),
-                                        child: const Padding(
-                                          padding: EdgeInsets.fromLTRB(
-                                              125, 20, 125, 20),
-                                          child: Text(
-                                            "Verify",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        width: 320,
+                        height: 80,
+                        child: Card(
+                          elevation: 10,
+                          borderOnForeground: false,
+                          shape: RoundedRectangleBorder(
+                            side: const BorderSide(
+                                color: Colors.white70, width: 1),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          color: Colors.white,
+                          child: Stack(
+                            children: [
+                              const ListTile(
+                                minVerticalPadding: 20,
+                                trailing: Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                  child: Icon(Icons.email_outlined),
+                                ),
                               ),
-                            );
-                          }
-                        },
+                              TextField(
+                                controller: _emailController,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  errorText: _emainIsValid
+                                      ? null
+                                      : 'Enter valid email',
+                                  filled: true,
+                                  hintStyle: TextStyle(
+                                    color: Colors.grey[500],
+                                    fontSize: 13,
+                                  ),
+                                  hintText: "E-Mail",
+                                  fillColor: Colors.transparent,
+                                  isDense: true,
+                                  contentPadding:
+                                      const EdgeInsets.fromLTRB(15, 0, 0, 44),
+                                ),
+                                keyboardType: TextInputType.emailAddress,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        width: 320,
+                        height: 80,
+                        child: Card(
+                          elevation: 10,
+                          borderOnForeground: false,
+                          shape: RoundedRectangleBorder(
+                            side: const BorderSide(
+                                color: Colors.white70, width: 1),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          color: Colors.white,
+                          child: Stack(
+                            children: [
+                              const ListTile(
+                                  minVerticalPadding: 20,
+                                  trailing: Padding(
+                                    padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                    child: Icon(Icons.password_outlined),
+                                  )),
+                              TextField(
+                                controller: _passwordController,
+                                obscureText: true,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  errorText: _passwordIsvalid
+                                      ? null
+                                      : 'Password must be atleast 6 characters',
+                                  filled: true,
+                                  hintStyle: TextStyle(
+                                    color: Colors.grey[500],
+                                    fontSize: 13,
+                                  ),
+                                  hintText: "Password",
+                                  fillColor: Colors.transparent,
+                                  isDense: true,
+                                  contentPadding:
+                                      const EdgeInsets.fromLTRB(15, 0, 0, 44),
+                                ),
+                                keyboardType: TextInputType.visiblePassword,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        width: 320,
+                        height: 80,
+                        child: InkWell(
+                          onTap: () {
+                            if (_emailController.text.trim().isEmpty ||
+                                !_emailController.text.contains('@')) {
+                              setState(() {
+                                _emainIsValid = false;
+                              });
+                            } else {
+                              setState(() {
+                                _emainIsValid = true;
+                              });
+                            }
+
+                            if (_passwordController.text.trim().length < 6 ||
+                                _passwordController.text.isEmpty) {
+                              setState(() {
+                                _passwordIsvalid = false;
+                              });
+                            } else {
+                              setState(() {
+                                _passwordIsvalid = true;
+                              });
+                            }
+
+                            if (_phoneController.text.trim().length > 10 ||
+                                _phoneController.text.isEmpty) {
+                              setState(() {
+                                _phoneIsValid = false;
+                              });
+                            } else {
+                              setState(() {
+                                _phoneIsValid = true;
+                              });
+                            }
+
+                            if (_usernameController.text.isEmpty) {
+                              setState(() {
+                                _usernameIsValid = false;
+                              });
+                            } else {
+                              setState(() {
+                                _usernameIsValid = true;
+                              });
+                            }
+
+                            if (_emainIsValid &&
+                                _passwordIsvalid &&
+                                _phoneIsValid &&
+                                _usernameIsValid) {
+                              authHandler.sendOtp(_emailController.text);
+                              Get.defaultDialog(
+                                title: "OTP Verification",
+                                content: Column(
+                                  children: [
+                                    Text(
+                                        "Please enter OTP sent to ${_emailController.text.trim()}"),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      width: 320,
+                                      height: 80,
+                                      child: Card(
+                                        elevation: 10,
+                                        shape: RoundedRectangleBorder(
+                                          side: const BorderSide(
+                                              color: Colors.white70, width: 1),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        color: Colors.white,
+                                        child: Stack(children: [
+                                          const ListTile(
+                                            trailing: Padding(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  0, 10, 0, 0),
+                                              child: Icon(Icons.lock),
+                                            ),
+                                          ),
+                                          TextField(
+                                            controller: _otpcontroller,
+                                            decoration: InputDecoration(
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              filled: true,
+                                              hintStyle: TextStyle(
+                                                color: Colors.grey[500],
+                                                fontSize: 13,
+                                              ),
+                                              hintText: "Enter OTP",
+                                              fillColor: Colors.transparent,
+                                              isDense: true,
+                                              contentPadding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      15, 0, 0, 44),
+                                            ),
+                                            keyboardType: TextInputType.number,
+                                          ),
+                                        ]),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        authHandler
+                                            .verifyOtp(_otpcontroller.text);
+                                        Get.defaultDialog(
+                                            title: "OTP Verified ✔",
+                                            middleText:
+                                                "please wait... redirecting to HomePage");
+                                        signUp();
+                                        // if () {
+                                        //   Get.defaultDialog(
+                                        //       title: "OTP Verified ✔",
+                                        //       middleText:
+                                        //       "please wait... redirecting to HomePage");
+                                        //   signUp();
+                                        // } else {
+                                        //   Get.defaultDialog(
+                                        //       title: "OTP Verification failed",
+                                        //       middleText: "please try again...");
+                                        // }
+                                      },
+                                      child: Card(
+                                        color: Colors.transparent,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(10)),
+                                            border: Border.all(
+                                              color: Colors.white70,
+                                            ),
+                                            gradient: const LinearGradient(
+                                              colors: [
+                                                Color(0xffcf366d),
+                                                Color(0xffaf44ae),
+                                                Color(0xff904fe5)
+                                              ],
+                                            ),
+                                          ),
+                                          child: const Padding(
+                                            padding: EdgeInsets.fromLTRB(
+                                                125, 20, 125, 20),
+                                            child: Text(
+                                              "Verify",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                          },
+                          child: Card(
+                            color: Colors.transparent,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(10)),
+                                border: Border.all(
+                                  color: Colors.white70,
+                                ),
+                                gradient: const LinearGradient(
+                                  colors: [
+                                    Color(0xffcf366d),
+                                    Color(0xffaf44ae),
+                                    Color(0xff904fe5)
+                                  ],
+                                ),
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.fromLTRB(125, 20, 125, 20),
+                                child: Text(
+                                  "Sign Up",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      InkWell(
+                        onTap: () => Get.to(const SignUp(),
+                            transition: Transition.downToUp),
                         child: Card(
                           color: Colors.transparent,
                           child: Container(
@@ -505,9 +545,9 @@ class _SignUpState extends State<SignUp> {
                               ),
                             ),
                             child: const Padding(
-                              padding: EdgeInsets.fromLTRB(125, 20, 125, 20),
+                              padding: EdgeInsets.fromLTRB(65, 20, 65, 20),
                               child: Text(
-                                "Sign Up",
+                                "Already a user? Login Instead!",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -518,59 +558,60 @@ class _SignUpState extends State<SignUp> {
                           ),
                         ),
                       ),
-                    ),
-                    const Text(
-                      "Or continue with",
-                      style: TextStyle(fontSize: 13, color: Colors.white),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      width: 320,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              width: 100,
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(100),
-                                ),
-                                color: Colors.white,
-                                child: Padding(
-                                  padding: EdgeInsets.all(15),
-                                  child: Image.asset(
-                                    'assets/google-logo.png',
-                                    width: 25,
-                                    height: 25,
+                      const SizedBox(height: 10),
+                      const Text(
+                        "Or continue with",
+                        style: TextStyle(fontSize: 13, color: Colors.white),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        width: 320,
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: 100,
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  color: Colors.white,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(15),
+                                    child: Image.asset(
+                                      'assets/google-logo.png',
+                                      width: 25,
+                                      height: 25,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            // Container(
-                            //   width: 120,
-                            //   child: Card(
-                            //     shape: RoundedRectangleBorder(
-                            //       borderRadius: BorderRadius.circular(10),
-                            //     ),
-                            //     color: Colors.blue.shade900,
-                            //     child: Padding(
-                            //       padding:
-                            //       const EdgeInsets.fromLTRB(50, 18, 40, 18),
-                            //       child: Text(
-                            //         "f",
-                            //         style: TextStyle(
-                            //             color: Colors.white,
-                            //             fontWeight: FontWeight.bold,
-                            //             fontSize: 18),
-                            //       ),
-                            //     ),
-                            //   ),
-                            // ),
-                          ]),
-                    )
-                  ])),
+                              // Container(
+                              //   width: 120,
+                              //   child: Card(
+                              //     shape: RoundedRectangleBorder(
+                              //       borderRadius: BorderRadius.circular(10),
+                              //     ),
+                              //     color: Colors.blue.shade900,
+                              //     child: Padding(
+                              //       padding:
+                              //       const EdgeInsets.fromLTRB(50, 18, 40, 18),
+                              //       child: Text(
+                              //         "f",
+                              //         style: TextStyle(
+                              //             color: Colors.white,
+                              //             fontWeight: FontWeight.bold,
+                              //             fontSize: 18),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
+                            ]),
+                      )
+                    ]),
+              )),
             )));
   }
 
