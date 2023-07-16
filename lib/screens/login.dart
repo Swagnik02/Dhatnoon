@@ -85,252 +85,271 @@ class _LogInState extends State<LogIn> {
           body: Container(
             margin: const EdgeInsets.fromLTRB(20, 40, 20, 40),
             child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Spacer(),
-                      InkWell(
-                        onTap: () => Get.to(const SignUp(),
-                            transition: Transition.downToUp),
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          color: Colors.grey.shade600,
-                          child: const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              "Sign Up",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: Color(0xff120032),
-                                  fontWeight: FontWeight.bold),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/logon.png',
+                          width: 200,
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    const Text(
+                      " \n Welcome Back \n",
+                      style: TextStyle(
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      width: 320,
+                      // height: 85,
+                      child: Card(
+                        elevation: 10,
+                        shape: RoundedRectangleBorder(
+                          side:
+                              const BorderSide(color: Colors.white70, width: 1),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        color: Colors.white,
+                        child: Stack(
+                          children: [
+                            const ListTile(
+                              minVerticalPadding: 20,
+                              trailing: Padding(
+                                  padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                  child: Icon(Icons.email_outlined)),
                             ),
-                          ),
+                            TextField(
+                                controller: _emailController,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  errorText: _emailIsValid
+                                      ? null
+                                      : 'Enter valid email',
+                                  filled: true,
+                                  hintStyle: TextStyle(
+                                    color: Colors.grey[500],
+                                    fontSize: 13,
+                                  ),
+                                  hintText: "E-mail",
+                                  fillColor: Colors.transparent,
+                                  isDense: true,
+                                  contentPadding:
+                                      const EdgeInsets.fromLTRB(15, 0, 0, 44),
+                                ),
+                                keyboardType: TextInputType.emailAddress),
+                            _emailIsValid
+                                ? const SizedBox(height: 10)
+                                : const SizedBox(height: 95),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Text(
-                    " \n Welcome Back \n",
-                    style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: 320,
-                    // height: 85,
-                    child: Card(
-                      elevation: 10,
-                      shape: RoundedRectangleBorder(
-                        side: const BorderSide(color: Colors.white70, width: 1),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      color: Colors.white,
-                      child: Stack(
-                        children: [
-                          const ListTile(
-                            minVerticalPadding: 20,
-                            trailing: Padding(
+                    ),
+                    const SizedBox(height: 10),
+                    Container(
+                      alignment: Alignment.center,
+                      width: 320,
+                      // height: 80,
+                      child: Card(
+                        elevation: 10,
+                        borderOnForeground: false,
+                        shape: RoundedRectangleBorder(
+                          side:
+                              const BorderSide(color: Colors.white70, width: 1),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        color: Colors.white,
+                        child: Stack(
+                          children: [
+                            const ListTile(
+                              minVerticalPadding: 20,
+                              trailing: Padding(
                                 padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                child: Icon(Icons.email_outlined)),
-                          ),
-                          TextField(
-                              controller: _emailController,
+                                child: Icon(Icons.password_outlined),
+                              ),
+                            ),
+                            TextField(
+                              controller: _passwordController,
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                errorText:
-                                    _emailIsValid ? null : 'Enter valid email',
+                                errorText: _passwordIsValid
+                                    ? null
+                                    : 'Password must be atleast 6 characters',
                                 filled: true,
                                 hintStyle: TextStyle(
                                   color: Colors.grey[500],
                                   fontSize: 13,
                                 ),
-                                hintText: "E-mail",
+                                hintText: "Password",
                                 fillColor: Colors.transparent,
                                 isDense: true,
                                 contentPadding:
                                     const EdgeInsets.fromLTRB(15, 0, 0, 44),
                               ),
-                              keyboardType: TextInputType.emailAddress),
-                          _emailIsValid
-                              ? SizedBox(height: 10)
-                              : SizedBox(height: 95),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Container(
-                    alignment: Alignment.center,
-                    width: 320,
-                    // height: 80,
-                    child: Card(
-                      elevation: 10,
-                      borderOnForeground: false,
-                      shape: RoundedRectangleBorder(
-                        side: const BorderSide(color: Colors.white70, width: 1),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      color: Colors.white,
-                      child: Stack(
-                        children: [
-                          const ListTile(
-                            minVerticalPadding: 20,
-                            trailing: Padding(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                              child: Icon(Icons.password_outlined),
+                              keyboardType: TextInputType.visiblePassword,
                             ),
-                          ),
-                          TextField(
-                            controller: _passwordController,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              errorText: _passwordIsValid
-                                  ? null
-                                  : 'Password must be atleast 6 characters',
-                              filled: true,
-                              hintStyle: TextStyle(
-                                color: Colors.grey[500],
-                                fontSize: 13,
-                              ),
-                              hintText: "Password",
-                              fillColor: Colors.transparent,
-                              isDense: true,
-                              contentPadding:
-                                  const EdgeInsets.fromLTRB(15, 0, 0, 44),
-                            ),
-                            keyboardType: TextInputType.visiblePassword,
-                          ),
-                          _passwordIsValid
-                              ? SizedBox(height: 10)
-                              : SizedBox(height: 95),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  InkWell(
-                    onTap: () => signIn(),
-                    child: Card(
-                      color: Colors.transparent,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
-                          border: Border.all(
-                            color: Colors.white70,
-                          ),
-                          gradient: const LinearGradient(
-                            colors: [
-                              Color(0xffcf366d),
-                              Color(0xffaf44ae),
-                              Color(0xff904fe5)
-                            ],
-                          ),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.fromLTRB(135, 20, 135, 20),
-                          child: Text(
-                            "Log In",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12,
-                            ),
-                          ),
+                            _passwordIsValid
+                                ? const SizedBox(height: 10)
+                                : const SizedBox(height: 95),
+                          ],
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  InkWell(
-                    onTap: () => Get.to(const ResetScreen()),
-                    child: const Text(
-                      "Forgot your Password?",
-                      style: TextStyle(
-                          fontSize: 13,
-                          color: Color.fromARGB(255, 255, 65, 118)),
+                    const SizedBox(
+                      height: 10,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    width: 320,
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            width: 100,
-                            child: InkWell(
-                              onTap: () => googleLogin(),
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(100),
-                                ),
+                    InkWell(
+                      onTap: () => signIn(),
+                      child: Card(
+                        color: Colors.transparent,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                            border: Border.all(
+                              color: Colors.white70,
+                            ),
+                            gradient: const LinearGradient(
+                              colors: [
+                                Color(0xffcf366d),
+                                Color(0xffaf44ae),
+                                Color(0xff904fe5)
+                              ],
+                            ),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.fromLTRB(135, 20, 135, 20),
+                            child: Text(
+                              "Log In",
+                              style: TextStyle(
                                 color: Colors.white,
-                                child: Padding(
-                                  padding: EdgeInsets.all(15),
-                                  // child: Text(
-                                  //   "G",
-                                  //   style: TextStyle(
-                                  //       color: Colors.white,
-                                  //       fontWeight: FontWeight.bold,
-                                  //       fontSize: 18),
-                                  // ),
-                                  child: Image.asset(
-                                    'assets/google-logo.png',
-                                    width: 25,
-                                    height: 25,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    InkWell(
+                      onTap: () => Get.to(const SignUp(),
+                          transition: Transition.downToUp),
+                      child: Card(
+                        color: Colors.transparent,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                              border: Border.all(
+                                color: Colors.white70,
+                              ),
+                              // gradient: const LinearGradient(
+                              //   colors: [
+                              //     Color(0xffcf366d),
+                              //     Color(0xffaf44ae),
+                              //     Color(0xff904fe5)
+                              //   ],
+                              // ),
+                              color: Colors.transparent),
+                          child: const Padding(
+                            padding: EdgeInsets.fromLTRB(50, 20, 50, 20),
+                            child: Text(
+                              "New User? Create an account instead!",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    InkWell(
+                      onTap: () => Get.to(const ResetScreen()),
+                      child: const Text(
+                        "Forgot your Password?",
+                        style: TextStyle(
+                            fontSize: 13,
+                            color: Color.fromARGB(255, 255, 65, 118)),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      width: 320,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              width: 100,
+                              child: InkWell(
+                                onTap: () => googleLogin(),
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  color: Colors.white,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(15),
+                                    // child: Text(
+                                    //   "G",
+                                    //   style: TextStyle(
+                                    //       color: Colors.white,
+                                    //       fontWeight: FontWeight.bold,
+                                    //       fontSize: 18),
+                                    // ),
+                                    child: Image.asset(
+                                      'assets/google-logo.png',
+                                      width: 25,
+                                      height: 25,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          // Container(
-                          //   width: 120,
-                          //   child: Card(
-                          //     shape: RoundedRectangleBorder(
-                          //       borderRadius: BorderRadius.circular(10),
-                          //     ),
-                          //     color: Colors.blue.shade900,
-                          //     child: Padding(
-                          //       padding:
-                          //       const EdgeInsets.fromLTRB(50, 18, 40, 18),
-                          //       child: Text(
-                          //         "f",
-                          //         style: TextStyle(
-                          //             color: Colors.white,
-                          //             fontWeight: FontWeight.bold,
-                          //             fontSize: 18),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                        ]),
-                  )
-                ],
+                            // Container(
+                            //   width: 120,
+                            //   child: Card(
+                            //     shape: RoundedRectangleBorder(
+                            //       borderRadius: BorderRadius.circular(10),
+                            //     ),
+                            //     color: Colors.blue.shade900,
+                            //     child: Padding(
+                            //       padding:
+                            //       const EdgeInsets.fromLTRB(50, 18, 40, 18),
+                            //       child: Text(
+                            //         "f",
+                            //         style: TextStyle(
+                            //             color: Colors.white,
+                            //             fontWeight: FontWeight.bold,
+                            //             fontSize: 18),
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
+                          ]),
+                    )
+                  ],
+                ),
               ),
             ),
           )
