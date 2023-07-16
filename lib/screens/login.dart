@@ -254,19 +254,19 @@ class _LogInState extends State<LogIn> {
                         color: Colors.transparent,
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                            border: Border.all(
-                              color: Colors.white70,
-                            ),
-                            gradient: const LinearGradient(
-                              colors: [
-                                Color(0xffcf366d),
-                                Color(0xffaf44ae),
-                                Color(0xff904fe5)
-                              ],
-                            ),
-                          ),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                              border: Border.all(
+                                color: Colors.white70,
+                              ),
+                              // gradient: const LinearGradient(
+                              //   colors: [
+                              //     Color(0xffcf366d),
+                              //     Color(0xffaf44ae),
+                              //     Color(0xff904fe5)
+                              //   ],
+                              // ),
+                              color: Colors.transparent),
                           child: const Padding(
                             padding: EdgeInsets.fromLTRB(50, 20, 50, 20),
                             child: Text(

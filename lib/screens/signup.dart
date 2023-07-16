@@ -28,7 +28,13 @@ class _SignUpState extends State<SignUp> {
   var _phoneIsValid = true;
 
   // email-verification-controller
-  final TextEditingController _otpcontroller = TextEditingController();
+  final TextEditingController _otpcontroller1 = TextEditingController();
+  final TextEditingController _otpcontroller2 = TextEditingController();
+  final TextEditingController _otpcontroller3 = TextEditingController();
+  final TextEditingController _otpcontroller4 = TextEditingController();
+  final TextEditingController _otpcontroller5 = TextEditingController();
+  final TextEditingController _otpcontroller6 = TextEditingController();
+
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   AuthHandler authHandler = AuthHandler();
@@ -370,60 +376,175 @@ class _SignUpState extends State<SignUp> {
                                   children: [
                                     Text(
                                         "Please enter OTP sent to ${_emailController.text.trim()}"),
-                                    Container(
-                                      alignment: Alignment.center,
-                                      width: 320,
-                                      height: 80,
-                                      child: Card(
-                                        elevation: 10,
-                                        shape: RoundedRectangleBorder(
-                                          side: const BorderSide(
-                                              color: Colors.white70, width: 1),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        color: Colors.white,
-                                        child: Stack(children: [
-                                          const ListTile(
-                                            trailing: Padding(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  0, 10, 0, 0),
-                                              child: Icon(Icons.lock),
+                                    const SizedBox(height: 10),
+                                    SizedBox(
+                                      height: 40,
+                                      width: 270,
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: TextField(
+                                              autofocus: true,
+                                              textAlign: TextAlign.center,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              controller: _otpcontroller1,
+                                              maxLength: 1,
+                                              cursorColor: Theme.of(context)
+                                                  .primaryColor,
+                                              decoration: const InputDecoration(
+                                                  contentPadding:
+                                                      EdgeInsets.only(
+                                                          bottom: 1, left: 4),
+                                                  border: OutlineInputBorder(),
+                                                  counterText: '',
+                                                  hintStyle: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 20.0)),
                                             ),
                                           ),
-                                          TextField(
-                                            controller: _otpcontroller,
-                                            decoration: InputDecoration(
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.0),
-                                              ),
-                                              filled: true,
-                                              hintStyle: TextStyle(
-                                                color: Colors.grey[500],
-                                                fontSize: 13,
-                                              ),
-                                              hintText: "Enter OTP",
-                                              fillColor: Colors.transparent,
-                                              isDense: true,
-                                              contentPadding:
-                                                  const EdgeInsets.fromLTRB(
-                                                      15, 0, 0, 44),
+                                          const SizedBox(width: 8),
+                                          Expanded(
+                                            child: TextField(
+                                              autofocus: true,
+                                              textAlign: TextAlign.center,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              controller: _otpcontroller2,
+                                              maxLength: 1,
+                                              cursorColor: Theme.of(context)
+                                                  .primaryColor,
+                                              decoration: const InputDecoration(
+                                                  contentPadding:
+                                                      EdgeInsets.only(
+                                                          bottom: 1, left: 4),
+                                                  border: OutlineInputBorder(),
+                                                  counterText: '',
+                                                  hintStyle: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 20.0)),
                                             ),
-                                            keyboardType: TextInputType.number,
                                           ),
-                                        ]),
+                                          const SizedBox(width: 8),
+                                          Expanded(
+                                            child: TextField(
+                                              autofocus: true,
+                                              textAlign: TextAlign.center,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              controller: _otpcontroller3,
+                                              maxLength: 1,
+                                              cursorColor: Theme.of(context)
+                                                  .primaryColor,
+                                              decoration: const InputDecoration(
+                                                  contentPadding:
+                                                      EdgeInsets.only(
+                                                          bottom: 1, left: 4),
+                                                  border: OutlineInputBorder(),
+                                                  counterText: '',
+                                                  hintStyle: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 20.0)),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          Expanded(
+                                            child: TextField(
+                                              autofocus: true,
+                                              textAlign: TextAlign.center,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              controller: _otpcontroller4,
+                                              maxLength: 1,
+                                              cursorColor: Theme.of(context)
+                                                  .primaryColor,
+                                              decoration: const InputDecoration(
+                                                  contentPadding:
+                                                      EdgeInsets.only(
+                                                          bottom: 1, left: 4),
+                                                  border: OutlineInputBorder(),
+                                                  counterText: '',
+                                                  hintStyle: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 20.0)),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          Expanded(
+                                            child: TextField(
+                                              autofocus: true,
+                                              textAlign: TextAlign.center,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              controller: _otpcontroller5,
+                                              maxLength: 1,
+                                              cursorColor: Theme.of(context)
+                                                  .primaryColor,
+                                              decoration: const InputDecoration(
+                                                  contentPadding:
+                                                      EdgeInsets.only(
+                                                          bottom: 1, left: 4),
+                                                  border: OutlineInputBorder(),
+                                                  counterText: '',
+                                                  hintStyle: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 20.0)),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          Expanded(
+                                            child: TextField(
+                                              autofocus: true,
+                                              textAlign: TextAlign.center,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              controller: _otpcontroller6,
+                                              maxLength: 1,
+                                              cursorColor: Theme.of(context)
+                                                  .primaryColor,
+                                              decoration: const InputDecoration(
+                                                  contentPadding:
+                                                      EdgeInsets.only(
+                                                          bottom: 1, left: 4),
+                                                  border: OutlineInputBorder(),
+                                                  counterText: '',
+                                                  hintStyle: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 20.0)),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
+                                    const SizedBox(height: 10),
                                     InkWell(
                                       onTap: () {
-                                        authHandler
-                                            .verifyOtp(_otpcontroller.text);
+                                        if (_otpcontroller1.text.isEmpty ||
+                                            _otpcontroller2.text.isEmpty ||
+                                            _otpcontroller3.text.isEmpty ||
+                                            _otpcontroller4.text.isEmpty ||
+                                            _otpcontroller5.text.isEmpty ||
+                                            _otpcontroller6.text.isEmpty) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text('Invalid OTP'),
+                                            ),
+                                          );
+                                        }
+                                        authHandler.verifyOtp(
+                                            _otpcontroller1.text +
+                                                _otpcontroller2.text +
+                                                _otpcontroller3.text +
+                                                _otpcontroller4.text +
+                                                _otpcontroller5.text +
+                                                _otpcontroller6.text);
                                         Get.defaultDialog(
                                             title: "OTP Verified ✔",
                                             middleText:
                                                 "please wait... redirecting to HomePage");
                                         signUp();
+
                                         // if () {
                                         //   Get.defaultDialog(
                                         //       title: "OTP Verified ✔",
@@ -519,13 +640,14 @@ class _SignUpState extends State<SignUp> {
                               border: Border.all(
                                 color: Colors.white70,
                               ),
-                              gradient: const LinearGradient(
-                                colors: [
-                                  Color(0xffcf366d),
-                                  Color(0xffaf44ae),
-                                  Color(0xff904fe5)
-                                ],
-                              ),
+                              // gradient: const LinearGradient(
+                              //   colors: [
+                              //     Color(0xffcf366d),
+                              //     Color(0xffaf44ae),
+                              //     Color(0xff904fe5)
+                              //   ],
+                              // ),
+                              color: Colors.transparent,
                             ),
                             child: const Padding(
                               padding: EdgeInsets.fromLTRB(65, 20, 65, 20),
