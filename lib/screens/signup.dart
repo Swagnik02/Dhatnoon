@@ -4,11 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:components/main.dart';
 import 'package:components/screens/login.dart';
 import 'package:components/utils/tabBar.dart';
-import 'package:email_auth/email_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:email_otp/email_otp.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -27,7 +25,6 @@ class _SignUpState extends State<SignUp> {
   var _usernameIsValid = true;
   var _phoneIsValid = true;
 
-  // email-verification-controller
   final TextEditingController _otpcontroller1 = TextEditingController();
   final TextEditingController _otpcontroller2 = TextEditingController();
   final TextEditingController _otpcontroller3 = TextEditingController();
@@ -36,6 +33,8 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _otpcontroller6 = TextEditingController();
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+
 
   AuthHandler authHandler = AuthHandler();
 
@@ -49,23 +48,228 @@ class _SignUpState extends State<SignUp> {
     super.initState();
   }
 
-  // bool verify() {
-  //   return emailAuth.validateOtp(
-  //       recipientMail: _emailController.value.text,
-  //       userOtp: _otpcontroller.text);
-  //
-  // }
+  void verify() async {
+    var otpRes = await authHandler.verifyOtp(_otpcontroller1.text +
+        _otpcontroller2.text +
+        _otpcontroller3.text +
+        _otpcontroller4.text +
+        _otpcontroller5.text +
+        _otpcontroller6.text);
 
-  // void sendOtp() async {
-  //
-  //   // bool result = await emailAuth.sendOtp(
-  //   //     recipientMail: _emailController.value.text, otpLength: 5);
-  //   // if (result) {
-  //   //   setState(() {
-  //   //     submitValid = true;
-  //   //   });
-  //   // }
-  // }
+    if (otpRes) {
+      Get.defaultDialog(
+          title: "OTP Verified ✔",
+          middleText: "please wait... redirecting to HomePage");
+      signUp();
+    } else {
+      Get.defaultDialog(
+          title: "OTP Verification failed", middleText: "please try again...");
+    }
+  }
+
+  void sendOtp() async {
+    if (_emailController.text.trim().isEmpty ||
+        !_emailController.text.contains('@')) {
+      setState(() {
+        _emainIsValid = false;
+      });
+    } else {
+      setState(() {
+        _emainIsValid = true;
+      });
+    }
+
+    if (_passwordController.text.trim().length < 6 ||
+        _passwordController.text.isEmpty) {
+      setState(() {
+        _passwordIsvalid = false;
+      });
+    } else {
+      setState(() {
+        _passwordIsvalid = true;
+      });
+    }
+
+    if (_phoneController.text.trim().length > 10 ||
+        _phoneController.text.isEmpty) {
+      setState(() {
+        _phoneIsValid = false;
+      });
+    } else {
+      setState(() {
+        _phoneIsValid = true;
+      });
+    }
+
+    if (_usernameController.text.isEmpty) {
+      setState(() {
+        _usernameIsValid = false;
+      });
+    } else {
+      setState(() {
+        _usernameIsValid = true;
+      });
+    }
+
+    if (_emainIsValid &&
+        _passwordIsvalid &&
+        _phoneIsValid &&
+        _usernameIsValid) {
+      var otpSendRes = await authHandler.sendOtp(_emailController.text);
+
+      Get.defaultDialog(
+        title: "OTP Verification",
+        content: Column(
+          children: [
+            Text("Please enter OTP sent to ${_emailController.text.trim()}"),
+            const SizedBox(height: 10),
+            SizedBox(
+              height: 40,
+              width: 270,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      autofocus: true,
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.number,
+                      controller: _otpcontroller1,
+                      maxLength: 1,
+                      cursorColor: Theme.of(context).primaryColor,
+                      decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 1, left: 4),
+                          border: OutlineInputBorder(),
+                          counterText: '',
+                          hintStyle:
+                              TextStyle(color: Colors.black, fontSize: 20.0)),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: TextField(
+                      autofocus: true,
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.number,
+                      controller: _otpcontroller2,
+                      maxLength: 1,
+                      cursorColor: Theme.of(context).primaryColor,
+                      decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 1, left: 4),
+                          border: OutlineInputBorder(),
+                          counterText: '',
+                          hintStyle:
+                              TextStyle(color: Colors.black, fontSize: 20.0)),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: TextField(
+                      autofocus: true,
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.number,
+                      controller: _otpcontroller3,
+                      maxLength: 1,
+                      cursorColor: Theme.of(context).primaryColor,
+                      decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 1, left: 4),
+                          border: OutlineInputBorder(),
+                          counterText: '',
+                          hintStyle:
+                              TextStyle(color: Colors.black, fontSize: 20.0)),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: TextField(
+                      autofocus: true,
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.number,
+                      controller: _otpcontroller4,
+                      maxLength: 1,
+                      cursorColor: Theme.of(context).primaryColor,
+                      decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 1, left: 4),
+                          border: OutlineInputBorder(),
+                          counterText: '',
+                          hintStyle:
+                              TextStyle(color: Colors.black, fontSize: 20.0)),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: TextField(
+                      autofocus: true,
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.number,
+                      controller: _otpcontroller5,
+                      maxLength: 1,
+                      cursorColor: Theme.of(context).primaryColor,
+                      decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 1, left: 4),
+                          border: OutlineInputBorder(),
+                          counterText: '',
+                          hintStyle:
+                              TextStyle(color: Colors.black, fontSize: 20.0)),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: TextField(
+                      autofocus: true,
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.number,
+                      controller: _otpcontroller6,
+                      maxLength: 1,
+                      cursorColor: Theme.of(context).primaryColor,
+                      decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 1, left: 4),
+                          border: OutlineInputBorder(),
+                          counterText: '',
+                          hintStyle:
+                              TextStyle(color: Colors.black, fontSize: 20.0)),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 10),
+            InkWell(
+              onTap: verify,
+              child: Card(
+                color: Colors.transparent,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    border: Border.all(
+                      color: Colors.white70,
+                    ),
+                    gradient: const LinearGradient(
+                      colors: [
+                        Color(0xffcf366d),
+                        Color(0xffaf44ae),
+                        Color(0xff904fe5)
+                      ],
+                    ),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.fromLTRB(125, 20, 125, 20),
+                    child: Text(
+                      "Verify",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -321,280 +525,7 @@ class _SignUpState extends State<SignUp> {
                         width: 320,
                         height: 80,
                         child: InkWell(
-                          onTap: () {
-                            if (_emailController.text.trim().isEmpty ||
-                                !_emailController.text.contains('@')) {
-                              setState(() {
-                                _emainIsValid = false;
-                              });
-                            } else {
-                              setState(() {
-                                _emainIsValid = true;
-                              });
-                            }
-
-                            if (_passwordController.text.trim().length < 6 ||
-                                _passwordController.text.isEmpty) {
-                              setState(() {
-                                _passwordIsvalid = false;
-                              });
-                            } else {
-                              setState(() {
-                                _passwordIsvalid = true;
-                              });
-                            }
-
-                            if (_phoneController.text.trim().length > 10 ||
-                                _phoneController.text.isEmpty) {
-                              setState(() {
-                                _phoneIsValid = false;
-                              });
-                            } else {
-                              setState(() {
-                                _phoneIsValid = true;
-                              });
-                            }
-
-                            if (_usernameController.text.isEmpty) {
-                              setState(() {
-                                _usernameIsValid = false;
-                              });
-                            } else {
-                              setState(() {
-                                _usernameIsValid = true;
-                              });
-                            }
-
-                            if (_emainIsValid &&
-                                _passwordIsvalid &&
-                                _phoneIsValid &&
-                                _usernameIsValid) {
-                              authHandler.sendOtp(_emailController.text);
-                              Get.defaultDialog(
-                                title: "OTP Verification",
-                                content: Column(
-                                  children: [
-                                    Text(
-                                        "Please enter OTP sent to ${_emailController.text.trim()}"),
-                                    const SizedBox(height: 10),
-                                    SizedBox(
-                                      height: 40,
-                                      width: 270,
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: TextField(
-                                              autofocus: true,
-                                              textAlign: TextAlign.center,
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              controller: _otpcontroller1,
-                                              maxLength: 1,
-                                              cursorColor: Theme.of(context)
-                                                  .primaryColor,
-                                              decoration: const InputDecoration(
-                                                  contentPadding:
-                                                      EdgeInsets.only(
-                                                          bottom: 1, left: 4),
-                                                  border: OutlineInputBorder(),
-                                                  counterText: '',
-                                                  hintStyle: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 20.0)),
-                                            ),
-                                          ),
-                                          const SizedBox(width: 8),
-                                          Expanded(
-                                            child: TextField(
-                                              autofocus: true,
-                                              textAlign: TextAlign.center,
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              controller: _otpcontroller2,
-                                              maxLength: 1,
-                                              cursorColor: Theme.of(context)
-                                                  .primaryColor,
-                                              decoration: const InputDecoration(
-                                                  contentPadding:
-                                                      EdgeInsets.only(
-                                                          bottom: 1, left: 4),
-                                                  border: OutlineInputBorder(),
-                                                  counterText: '',
-                                                  hintStyle: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 20.0)),
-                                            ),
-                                          ),
-                                          const SizedBox(width: 8),
-                                          Expanded(
-                                            child: TextField(
-                                              autofocus: true,
-                                              textAlign: TextAlign.center,
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              controller: _otpcontroller3,
-                                              maxLength: 1,
-                                              cursorColor: Theme.of(context)
-                                                  .primaryColor,
-                                              decoration: const InputDecoration(
-                                                  contentPadding:
-                                                      EdgeInsets.only(
-                                                          bottom: 1, left: 4),
-                                                  border: OutlineInputBorder(),
-                                                  counterText: '',
-                                                  hintStyle: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 20.0)),
-                                            ),
-                                          ),
-                                          const SizedBox(width: 8),
-                                          Expanded(
-                                            child: TextField(
-                                              autofocus: true,
-                                              textAlign: TextAlign.center,
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              controller: _otpcontroller4,
-                                              maxLength: 1,
-                                              cursorColor: Theme.of(context)
-                                                  .primaryColor,
-                                              decoration: const InputDecoration(
-                                                  contentPadding:
-                                                      EdgeInsets.only(
-                                                          bottom: 1, left: 4),
-                                                  border: OutlineInputBorder(),
-                                                  counterText: '',
-                                                  hintStyle: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 20.0)),
-                                            ),
-                                          ),
-                                          const SizedBox(width: 8),
-                                          Expanded(
-                                            child: TextField(
-                                              autofocus: true,
-                                              textAlign: TextAlign.center,
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              controller: _otpcontroller5,
-                                              maxLength: 1,
-                                              cursorColor: Theme.of(context)
-                                                  .primaryColor,
-                                              decoration: const InputDecoration(
-                                                  contentPadding:
-                                                      EdgeInsets.only(
-                                                          bottom: 1, left: 4),
-                                                  border: OutlineInputBorder(),
-                                                  counterText: '',
-                                                  hintStyle: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 20.0)),
-                                            ),
-                                          ),
-                                          const SizedBox(width: 8),
-                                          Expanded(
-                                            child: TextField(
-                                              autofocus: true,
-                                              textAlign: TextAlign.center,
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              controller: _otpcontroller6,
-                                              maxLength: 1,
-                                              cursorColor: Theme.of(context)
-                                                  .primaryColor,
-                                              decoration: const InputDecoration(
-                                                  contentPadding:
-                                                      EdgeInsets.only(
-                                                          bottom: 1, left: 4),
-                                                  border: OutlineInputBorder(),
-                                                  counterText: '',
-                                                  hintStyle: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 20.0)),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    InkWell(
-                                      onTap: () {
-                                        if (_otpcontroller1.text.isEmpty ||
-                                            _otpcontroller2.text.isEmpty ||
-                                            _otpcontroller3.text.isEmpty ||
-                                            _otpcontroller4.text.isEmpty ||
-                                            _otpcontroller5.text.isEmpty ||
-                                            _otpcontroller6.text.isEmpty) {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            const SnackBar(
-                                              content: Text('Invalid OTP'),
-                                            ),
-                                          );
-                                        }
-                                        authHandler.verifyOtp(
-                                            _otpcontroller1.text +
-                                                _otpcontroller2.text +
-                                                _otpcontroller3.text +
-                                                _otpcontroller4.text +
-                                                _otpcontroller5.text +
-                                                _otpcontroller6.text);
-                                        Get.defaultDialog(
-                                            title: "OTP Verified ✔",
-                                            middleText:
-                                                "please wait... redirecting to HomePage");
-                                        signUp();
-
-                                        // if () {
-                                        //   Get.defaultDialog(
-                                        //       title: "OTP Verified ✔",
-                                        //       middleText:
-                                        //       "please wait... redirecting to HomePage");
-                                        //   signUp();
-                                        // } else {
-                                        //   Get.defaultDialog(
-                                        //       title: "OTP Verification failed",
-                                        //       middleText: "please try again...");
-                                        // }
-                                      },
-                                      child: Card(
-                                        color: Colors.transparent,
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(10)),
-                                            border: Border.all(
-                                              color: Colors.white70,
-                                            ),
-                                            gradient: const LinearGradient(
-                                              colors: [
-                                                Color(0xffcf366d),
-                                                Color(0xffaf44ae),
-                                                Color(0xff904fe5)
-                                              ],
-                                            ),
-                                          ),
-                                          child: const Padding(
-                                            padding: EdgeInsets.fromLTRB(
-                                                125, 20, 125, 20),
-                                            child: Text(
-                                              "Verify",
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }
-                          },
+                          onTap: sendOtp,
                           child: Card(
                             color: Colors.transparent,
                             child: Container(
