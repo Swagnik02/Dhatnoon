@@ -51,11 +51,12 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   // for hover effect
-  late final AnimationController _hoverController =
-      AnimationController(vsync: this, duration: Duration(milliseconds: 1250))
-        ..repeat(reverse: true);
+  late final AnimationController _hoverController = AnimationController(
+      vsync: this, duration: const Duration(milliseconds: 1250))
+    ..repeat(reverse: true);
   late Animation<Offset> _hoverAnimation =
-      Tween(begin: Offset.zero, end: Offset(0, 0.02)).animate(_hoverController);
+      Tween(begin: Offset.zero, end: const Offset(0, 0.02))
+          .animate(_hoverController);
 
   bool isIndex0 = true;
   Time _time = Time(hour: 11, minute: 30, second: 20);
@@ -105,11 +106,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   String _service = "Live Geo Location";
 
   // list of custom drawer items
-  final List<DrawerItem> _drawerItems = const <DrawerItem>[
-    DrawerItem(icon: Icon(Icons.home_outlined), label: "Home"),
-    DrawerItem(icon: Icon(Icons.person_outline_rounded), label: "Profile"),
-    DrawerItem(icon: Icon(Icons.logout_rounded), label: "Logout"),
-  ];
+  // final List<DrawerItem> _drawerItems = const <DrawerItem>[
+  //   DrawerItem(icon: Icon(Icons.home_outlined), label: "Home"),
+  //   DrawerItem(icon: Icon(Icons.person_outline_rounded), label: "Profile"),
+  //   DrawerItem(icon: Icon(Icons.logout_rounded), label: "Logout"),
+  // ];
 
   TextEditingController _phoneNumberController = TextEditingController();
 
@@ -129,10 +130,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Stack(children: [
       DefaultTabController(
-        length: 3,
+        length: 2,
         initialIndex: 1,
         child: Scaffold(
-          drawer: Placeholder(),
+          // drawer: Placeholder(),
           // drawer: VisibilityDetector(
           //   key: const Key('my-widget-key'),
           //   onVisibilityChanged: (visibilityInfo) {
@@ -163,43 +164,192 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           //     ),
           //   ),
           // ),
-          appBar: AppBar(
-            actions: [
-              PopupMenuButton<String>(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20.0),
-                    ),
+          drawer: Drawer(
+              child: Column(
+            children: [
+              DrawerHeader(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Theme.of(context).colorScheme.primaryContainer,
+                      Theme.of(context)
+                          .colorScheme
+                          .primaryContainer
+                          .withOpacity(0.8),
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
                   ),
-                  itemBuilder: (BuildContext context) {
-                    return [
-                      PopupMenuItem(
-                        child: InkWell(
-                          // onTap: () => Get.to(MapWala(latitude: 19.8064417, longitude: 72.7463952)),
+                ),
+                child: Row(
+                  children: [
+                    const SizedBox(
+                      width: 18,
+                    ),
+                    Text(
+                      'Dhatnoon',
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                          color: Theme.of(context).colorScheme.primary),
+                    ),
+                  ],
+                ),
+              ),
+              ListTile(
+                leading: const Icon(Icons.person),
+                title: const Text('Profile'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ProfilePage(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.settings),
+                title: const Text('Testing'),
+                onTap: () {
+                  Get.to(AudioPlayerPro(
+                      audioURL:
+                          "https://firebasestorage.googleapis.com/v0/b/dhatnoon-backend.appspot.com/o/tanmay_bhai_ka_luck.m4a?alt=media&token=1470f2d8-480d-44b0-abac-f833930c9443"));
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.send),
+                title: const Text('Request'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Get.defaultDialog(
+                    title: "Request",
+                    textConfirm: "Send",
+                    confirmTextColor: Colors.white,
+                    textCancel: "Back",
+                    onConfirm: () {
+                      // setState(() async {
+                      //   await
+                      // });
+                      print("Clicked successfully");
+                      addSessionDataToFirebase();
+                    },
+                    content: Column(
+                      children: [
+                        SizedBox(
+                          width: 250,
+                          height: 40,
+                          child: TextField(
+                            controller: _phoneNumberController,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              filled: true,
+                              hintStyle: TextStyle(color: Colors.grey[500]),
+                              hintText: "Phone number",
+                              fillColor: Colors.white70,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        InkWell(
                           onTap: () {
-                            Get.to(AudioPlayerPro(audioURL: "https://firebasestorage.googleapis.com/v0/b/dhatnoon-backend.appspot.com/o/tanmay_bhai_ka_luck.m4a?alt=media&token=1470f2d8-480d-44b0-abac-f833930c9443"));
+                            Get.to(ListWheel());
                           },
-                          child: const ListTile(
-                            title: Text("Testing   "),
-                            trailing: Icon(Icons.settings),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            elevation: 10,
+                            child: const Padding(
+                              padding: EdgeInsets.fromLTRB(50, 8, 50, 8),
+                              child: Text("Select your choice"),
+                            ),
                           ),
                         ),
-                      ),
-                      PopupMenuItem(
-                        child: InkWell(
-                          onTap: () => FirebaseAuth.instance.signOut(),
-                          child: const ListTile(
-                            title: Text("Log Out"),
-                            trailing: Icon(Icons.logout_outlined),
+                        const SizedBox(height: 10),
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              showPicker(
+                                elevation: 20,
+                                blurredBackground: true,
+                                borderRadius: 50,
+                                context: context,
+                                value: _time,
+                                onChange: onTimeChanged,
+                                minuteInterval: TimePickerInterval.FIVE,
+                                onChangeDateTime: (DateTime dateTime) {
+                                  setState(() {
+                                    _startTimeHour = dateTime.hour;
+                                    _startTimeMinute = dateTime.minute;
+                                  });
+                                },
+                              ),
+                            );
+                          },
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            elevation: 10,
+                            child: const Padding(
+                              padding: EdgeInsets.fromLTRB(57, 8, 57, 8),
+                              child: Text("Select start time"),
+                            ),
                           ),
                         ),
-                      ),
-                    ];
-                  }),
+                        const SizedBox(height: 10),
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              showPicker(
+                                elevation: 20,
+                                blurredBackground: true,
+                                borderRadius: 50,
+                                context: context,
+                                value: _time,
+                                onChange: onTimeChanged,
+                                minuteInterval: TimePickerInterval.FIVE,
+                                onChangeDateTime: (DateTime dateTime) {
+                                  setState(() {
+                                    _endTimeHour = dateTime.hour;
+                                    _endTimeMinute = dateTime.minute;
+                                  });
+                                },
+                              ),
+                            );
+                          },
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            elevation: 10,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(60, 8, 60, 8),
+                              child: Text("Select end time"),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                      ],
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.logout),
+                title: const Text('Logout'),
+                onTap: () {
+                  FirebaseAuth.instance.signOut();
+                },
+              ),
             ],
-            iconTheme: IconThemeData(color: Colors.white),
+          )),
+          appBar: AppBar(
+            iconTheme: const IconThemeData(color: Colors.white),
             flexibleSpace: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
                     Color(0xff270745),
@@ -212,7 +362,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               ),
             ),
             toolbarHeight: 90,
-            titleTextStyle: TextStyle(
+            titleTextStyle: const TextStyle(
                 fontSize: 15, color: Colors.white), // fontsize should be 20
             bottom: TabBar(
               // padding: EdgeInsets.symmetric(horizontal: 120),
@@ -229,12 +379,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 animate();
               },
               tabs: [
-                Visibility(
-                  visible: false,
-                  child: Tab(
-                    text: "request",
-                  ),
-                ),
                 Container(
                   // decoration: BoxDecoration(
                   //   boxShadow: [
@@ -258,7 +402,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Tab(
                       icon: Bouncy(
-                        duration: Duration(milliseconds: 2000),
+                        duration: const Duration(milliseconds: 2000),
                         lift: isIndex0 ? 10 : 0,
                         ratio: 0.5,
                         pause: 0.5,
@@ -299,7 +443,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Tab(
                       icon: Bouncy(
-                        duration: Duration(milliseconds: 2000),
+                        duration: const Duration(milliseconds: 2000),
                         lift: isIndex0 ? 0 : 10,
                         ratio: 0.5,
                         pause: 0.5,
@@ -318,11 +462,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   ),
                 ),
               ],
-              labelColor: Color.fromARGB(255, 255, 255, 255),
-              unselectedLabelColor: Color.fromARGB(255, 92, 91, 91),
+              labelColor: const Color.fromARGB(255, 255, 255, 255),
+              unselectedLabelColor: const Color.fromARGB(255, 92, 91, 91),
               indicatorSize: TabBarIndicatorSize.label,
               indicator: MaterialIndicator(
-                color: Color(0xffd33361),
+                color: const Color(0xffd33361),
                 height: 5,
                 topLeftRadius: 0,
                 topRightRadius: 0,
@@ -335,171 +479,16 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             // backgroundColor: Colors.black,
             centerTitle: true,
           ),
-          body: TabBarView(
+          body: const TabBarView(
             physics: NeverScrollableScrollPhysics(),
             children: [
-              Text("ok"),
+              // Text("ok"),
               AccordionPage(),
               AccordionPage1(),
             ],
           ),
         ),
       ),
-      Positioned(
-        top: 95,
-        left: 30,
-        child: GestureDetector(
-          onTap: () {
-            Get.defaultDialog(
-              title: "Request",
-              textConfirm: "Send",
-              confirmTextColor: Colors.white,
-              textCancel: "Back",
-              onConfirm: () {
-                // setState(() async {
-                //   await
-                // });
-                print("Clicked successfully");
-                addSessionDataToFirebase();
-              },
-              content: Column(
-                children: [
-                  SizedBox(
-                    width: 250,
-                    height: 40,
-                    child: TextField(
-                      controller: _phoneNumberController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        filled: true,
-                        hintStyle: TextStyle(color: Colors.grey[500]),
-                        hintText: "Phone number",
-                        fillColor: Colors.white70,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  InkWell(
-                    onTap: () {
-                      Get.to(ListWheel());
-                    },
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      elevation: 10,
-                      child: const Padding(
-                        padding: EdgeInsets.fromLTRB(50, 8, 50, 8),
-                        child: Text("Select your choice"),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        showPicker(
-                          elevation: 20,
-                          blurredBackground: true,
-                          borderRadius: 50,
-                          context: context,
-                          value: _time,
-                          onChange: onTimeChanged,
-                          minuteInterval: TimePickerInterval.FIVE,
-                          onChangeDateTime: (DateTime dateTime) {
-                            setState(() {
-                              _startTimeHour = dateTime.hour;
-                              _startTimeMinute = dateTime.minute;
-                            });
-                          },
-                        ),
-                      );
-                    },
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      elevation: 10,
-                      child: const Padding(
-                        padding: EdgeInsets.fromLTRB(57, 8, 57, 8),
-                        child: Text("Select start time"),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        showPicker(
-                          elevation: 20,
-                          blurredBackground: true,
-                          borderRadius: 50,
-                          context: context,
-                          value: _time,
-                          onChange: onTimeChanged,
-                          minuteInterval: TimePickerInterval.FIVE,
-                          onChangeDateTime: (DateTime dateTime) {
-                            setState(() {
-                              _endTimeHour = dateTime.hour;
-                              _endTimeMinute = dateTime.minute;
-                            });
-                          },
-                        ),
-                      );
-                    },
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      elevation: 10,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(60, 8, 60, 8),
-                        child: Text("Select end time"),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                ],
-              ),
-            );
-          },
-          child: SlideTransition(
-            position: _hoverAnimation,
-            child: Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0xffd33361),
-                    offset: Offset(0.0, -10),
-                    blurRadius: 25,
-                    spreadRadius: 1,
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  Icon(
-                    Icons.send_and_archive_outlined,
-                    size: 26.0,
-                    color: Colors.white,
-                  ),
-                  SizedBox(height: 8),
-                  Material(
-                    color: Colors.transparent,
-                    child: Text(
-                      "Request",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
-      )
     ]);
   }
 

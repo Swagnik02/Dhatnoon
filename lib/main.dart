@@ -22,27 +22,23 @@ Future main() async {
   await Firebase.initializeApp();
 
   final cameras = await availableCameras();
-  final front_Camera = cameras[1];  // front camera
+  final front_Camera = cameras[1]; // front camera
   final rear_Camera = cameras[0];
 
-  AwesomeNotifications().initialize(
-     null, 
-     [            // notification icon 
-        NotificationChannel(
-            channelGroupKey: 'basic_test',
-            channelKey: 'basic',
-            channelName: 'Basic notifications',
-            channelDescription: 'Notification channel for basic tests',
-            channelShowBadge: true,
-            importance: NotificationImportance.High,
-            enableVibration: false,
-        ),
+  AwesomeNotifications().initialize(null, [
+    // notification icon
+    NotificationChannel(
+      channelGroupKey: 'basic_test',
+      channelKey: 'basic',
+      channelName: 'Basic notifications',
+      channelDescription: 'Notification channel for basic tests',
+      channelShowBadge: true,
+      importance: NotificationImportance.High,
+      enableVibration: false,
+    ),
+  ]);
 
-     ]
-  );
-
-  
-    // rear camera
+  // rear camera
   runApp(MyApp());
 }
 
@@ -50,7 +46,6 @@ final navigatorkey = GlobalKey<NavigatorState>();
 
 // ignore: use_key_in_widget_constructors
 class MyApp extends StatelessWidget {
-
   StateOfFrontCamPic stateOfFrontCamPic = Get.put(StateOfFrontCamPic());
   StateOfBackCamPic stateOfBackCamPic = Get.put(StateOfBackCamPic());
 
@@ -67,8 +62,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.purple,
+        useMaterial3: true,
       ),
-      home: LoginPage(),
+      home: const LoginPage(),
     );
   }
 }
@@ -85,12 +81,11 @@ class LoginPage extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return MyHomePage();
-            } else if(snapshot.connectionState == ConnectionState.waiting){
-              return Center(child: CircularProgressIndicator());
-            } else if(snapshot.hasError){
-              return Center(child: Text("Something went wrong"));
-            }
-            else {
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return const Center(child: Text("Something went wrong"));
+            } else {
               return const LogIn();
             }
           }),
