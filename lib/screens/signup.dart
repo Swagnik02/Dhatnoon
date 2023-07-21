@@ -34,8 +34,6 @@ class _SignUpState extends State<SignUp> {
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-
-
   AuthHandler authHandler = AuthHandler();
 
   @override
@@ -685,10 +683,13 @@ class _SignUpState extends State<SignUp> {
             now.millisecond.toString(),
         'useremail': _emailController.text.trim(),
       });
+      Navigator.pushReplacement(context, MaterialPageRoute(
+        builder: (context) {
+          return MyHomePage();
+        },
+      ));
     } on FirebaseAuthException catch (e) {
       print(e.toString());
     }
-
-    navigatorkey.currentState!.popUntil((route) => route.isFirst);
   }
 }
